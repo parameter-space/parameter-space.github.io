@@ -13,27 +13,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Git environment and safe directory
+      - name: Set Git user and configure safe directory
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git config --global --add safe.directory /github/workspace
 
-      - name: Remove Git credentials and reset repository
+      - name: Reset Git repository and clean up
         run: |
-          rm -rf .git
-          git init
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git reset --hard HEAD
+          git clean -fdx
           git fetch origin main
-          git reset --hard origin/main
-
-      - name: Set GitHub Actions credentials
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-
-      - name: Pull latest changes and sync with main
-        run: |
+          git checkout main
           git pull origin main --rebase
+
+      - name: Set GitHub remote with authentication
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git fetch origin
+          git reset --hard origin/main
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
