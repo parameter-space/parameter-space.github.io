@@ -53,6 +53,8 @@ jobs:
       - name: Build Jekyll site
         env:
           JEKYLL_ENV: production
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAGES_REPO_NWO: parameter-space/parameter-space.github.io  # 리포지토리 명을 명시적으로 설정
         run: |
           bundle exec jekyll build || { echo "Jekyll build failed"; exit 1; }
 
