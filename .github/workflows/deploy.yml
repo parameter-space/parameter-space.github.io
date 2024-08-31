@@ -20,8 +20,14 @@ jobs:
 
       - name: Reset Git repository
         run: |
-          git reset --hard
+          git reset --hard HEAD
           git clean -fd
+
+      - name: Reset Git remote origin
+        run: |
+          git remote remove origin
+          git remote add origin https://github.com/${{ github.repository }}
+          git fetch origin
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -31,7 +37,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Node.js 최신 버전 설정
+          node-version: '20'
 
       - name: Install dependencies
         run: |
