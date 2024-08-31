@@ -1,2 +1,12 @@
-# Welcome to My Blog
-This is a sample page to start using GitHub Pages.
+---
+layout: default
+---
+<h1>Welcome to {{ site.title }}</h1>
+<ul>
+    {% for post in site.posts %}
+    <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <small>{{ post.date | date: "%B %d, %Y" }}</small>
+    </li>
+    {% endfor %}
+</ul>
