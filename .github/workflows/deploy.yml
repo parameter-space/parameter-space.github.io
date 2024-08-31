@@ -19,11 +19,11 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global --add safe.directory /github/workspace
 
-      - name: Clean up and fetch latest changes
+      - name: Reset Git repository and clean up
         run: |
-          git reset --hard
+          git reset --hard HEAD
           git clean -fdx
-          git fetch origin
+          git fetch origin main
           git checkout main
           git pull origin main --rebase
 
@@ -41,7 +41,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '20' # 명시적으로 Node.js 20 버전 사용 설정
 
       - name: Install dependencies
         run: |
@@ -54,7 +54,4 @@ jobs:
         run: bundle exec jekyll build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+ 
