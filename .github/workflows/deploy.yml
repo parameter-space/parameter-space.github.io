@@ -43,7 +43,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # 최신 Node.js 버전을 명시적으로 설정합니다.
+          node-version: '20'  # Node.js 20 버전을 명시적으로 설정합니다.
 
       - name: Install dependencies
         run: |
@@ -54,7 +54,7 @@ jobs:
         env:
           JEKYLL_ENV: production
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PAGES_REPO_NWO: parameter-space/parameter-space.github.io  # 리포지토리 명을 명시적으로 설정
+          PAGES_REPO_NWO: parameter-space/parameter-space.github.io
         run: |
           bundle exec jekyll build || { echo "Jekyll build failed"; exit 1; }
 
