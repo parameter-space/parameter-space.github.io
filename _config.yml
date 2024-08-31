@@ -1,3 +1,23 @@
 theme: minima
 title: "My Blog"
 description: "My Project and Source Blog"
+baseurl: ""  # GitHub Pages에서 사용 시 빈 값으로 둡니다.
+url: "https://parameter-space.github.io"  # 자신의 GitHub Pages URL로 설정합니다.
+
+# 포스트 URL 구조 설정
+permalink: /:categories/:year/:month/:day/:title/
+
+# 마크다운 설정
+markdown: kramdown
+
+# 카테고리와 태그를 URL에 반영하도록 설정
+collections:
+  posts:
+    output: true
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      permalink: "/:categories/:year/:month/:day/:title/"
